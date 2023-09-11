@@ -1,0 +1,75 @@
+/* The color palette is inspired from https://colorhunt.co/palette/c6d57ed57e7ea2cdcdffe1af */
+
+:root {
+	--text-color: #FFE8C2;
+	--background: #244242;
+	--font-size: 2rem;
+	--title-size: 4rem;
+	--monospace-font-family: "Ubuntu Mono",monospace;
+	--green: #C6D57E;
+	--red: #D57E7E;
+}
+
+body {
+	font-family: var(--monospace-font-family);
+	font-size: var(--font-size);
+	color: var(--text-color);
+	background-color: var(--background);
+}
+
+main {
+	    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100svh;
+    align-items: center;
+}
+
+p {
+	max-width: 90vw;
+	overflow-wrap: break-word;
+	white-space: pre-wrap;
+}
+
+span {
+	color: var(--green);
+}
+
+.error {
+	color: var(--red);
+}
+
+a, button, input, label {
+	text-decoration: none;
+	padding: 0.5rem;
+	margin: 0.5rem;
+	font-family: var(--monospace-font-family);
+	font-size: var(--font-size);
+	color: var(--background);
+	background-color: var(--text-color);
+	border-radius: 30px;
+	border: none;
+}
+
+input {
+	width: 75vw;
+}
+
+img {
+	filter: invert(83%) sepia(7%) saturate(5988%) hue-rotate(306deg) brightness(139%) contrast(127%);
+	width: 5rem;
+	height: auto;
+}
+
+
+header {
+	justify-content: center;
+	    display: flex;
+    flex-direction: row;
+    align-items: center;
+	flex-wrap: wrap;
+}
+
+h1 {
+	font-size: var(--title-size);
+}
