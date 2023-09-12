@@ -1,11 +1,14 @@
 const textElement = document.getElementById("text");
+const errorTextElement = document.getElementById("error-text");
+const nextCharElement = document.getElementById("next-char");
+const correctTextElement = document.getElementById("correct-text");
 const urlForm = document.getElementById("urlForm");
 const Http = new XMLHttpRequest();
-let text;
+let text = "";
 let correctText = "";
 let errorText = "";
+let nextChar = "";
 let pageStatus = "no text";
-
 
 window.addEventListener("keydown", function (event) {
 	if (pageStatus === "text"){
@@ -22,7 +25,7 @@ window.addEventListener("keydown", function (event) {
 				keyChar = event.key;
 		}
 
-		if (keyChar == text.charAt(0) && errorText.length == 0) {
+		if (keyChar == nextChar && errorText.length == 0) {
 			correctAnswer();
 		} 
 
@@ -52,7 +55,8 @@ function finishedText() {
 }
 
 function correctAnswer() {
-	correctText = correctText + text.charAt(0);
+	correctText = correctText + nextChar;
+	nextChar = text.charAt(0);
 	text = text.substring(1);
 	updateText();
 }
@@ -62,7 +66,10 @@ function wrongAnswer(eventKey) {
 		errorText = errorText.slice(0, -1);
 	}
 	else if (eventKey == 'Backspace') {
-		text = correctText.charAt(correctText.length - 1) + text;
+		if (correctText.length > 0) {
+			text = nextChar + text;
+			nextChar = correctText.charAt(correctText.length - 1);
+		}
 		correctText = correctText.slice(0, -1);
 	}
 	else if (eventKey.length === 1) {
@@ -72,12 +79,10 @@ function wrongAnswer(eventKey) {
 }
 
 function updateText(){
-	let correctTextElement = document.createElement('span');
-	let errorTextElement = document.createElement('span');
-	errorTextElement.classList.add("error");
-	correctTextElement.innerHTML = correctText;
-	errorTextElement.innerHTML = errorText;
-	textElement.innerHTML = correctTextElement.outerHTML + errorTextElement.outerHTML + text;
+	textElement.innerText = text;
+	correctTextElement.innerText = correctText;
+	errorTextElement.innerText = errorText;
+	nextCharElement.innerText = nextChar;
 }
 
 function submitUrl() {
@@ -90,12 +95,14 @@ function submitUrl() {
 	Http.onreadystatechange = (e) => {
 		text = Http.responseText;
 		text = text.replace(/ /g, String.fromCharCode(0x0B7));
-		textElement.innerHTML = text;
+		nextChar = text.charAt(0);
+		text = text.substring(1);
+		correctText = "";
+		errorText = "";
+		pageStatus = "text";
+		updateText();
 	}
 
-	correctText = "";
-	errorText = "";
-	pageStatus = "text";
 }
 
 urlForm.addEventListener("submit", (e) => {

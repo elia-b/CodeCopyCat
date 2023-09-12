@@ -27,11 +27,15 @@ main {
 
 p {
 	max-width: 90vw;
+	border: solid;
+	margin: 0.5rem;
+	padding: 0.7rem;
+	border-radius: 30px;
 	overflow-wrap: break-word;
 	white-space: pre-wrap;
 }
 
-span {
+.correct {
 	color: var(--green);
 }
 
