@@ -1,4 +1,5 @@
 const textElement = document.getElementById("text");
+const testButton = document.getElementById("test");
 const errorTextElement = document.getElementById("error-text");
 const nextCharElement = document.getElementById("next-char");
 const correctTextElement = document.getElementById("correct-text");
@@ -88,7 +89,10 @@ function updateText(){
 function submitUrl() {
 	let url = document.forms["urlForm"]["url"].value;
 	console.log(url);
+	loadUrl(url);
+}
 
+function loadUrl(url) {
 	Http.open("GET", url);
 	Http.send();
 
@@ -109,3 +113,21 @@ urlForm.addEventListener("submit", (e) => {
 	e.preventDefault();
 	submitUrl();
 });
+
+testButton.addEventListener("click", (e) => {
+	loadUrl("https://raw.githubusercontent.com/elia-b/CodeCopyCat/main/website/examples/hello-word.c");
+});
+
+const sleepTime = 650;
+function removeHighlight(){
+
+	nextCharElement.classList.remove("underline");
+    setTimeout(addHighlight, sleepTime);
+}
+
+function addHighlight(){
+	nextCharElement.classList.add("underline");
+    setTimeout(removeHighlight, sleepTime);
+}
+
+removeHighlight();
